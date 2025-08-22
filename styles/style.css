@@ -8,15 +8,6 @@
     --transition: all 0.3s ease;
 }
 
-[data-theme="dark"] {
-    --primary-color: #6c63ff;
-    --secondary-color: #a8a4ff;
-    --dark-color: #f8f9fa;
-    --light-color: #121212;
-    --text-dark: #f8f9fa;
-    --text-light: #333;
-}
-
 * {
     margin: 0;
     padding: 0;
