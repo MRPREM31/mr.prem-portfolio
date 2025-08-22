@@ -1,9 +1,9 @@
 <?php
 // Database configuration for InfinityFree
-define('DB_SERVER', 'your_servername');
-define('DB_USERNAME', 'your_username');
-define('DB_PASSWORD', 'your_password');
-define('DB_NAME', 'your_dbname');
+define('DB_SERVER', 'sql308.infinityfree.com');
+define('DB_USERNAME', 'if0_39769042');
+define('DB_PASSWORD', 'oKmeuT550pRuW');
+define('DB_NAME', 'if0_39769042_contact');
 
 // Attempt to connect to MySQL database
 $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
