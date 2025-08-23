@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="./images/d471a25a-75e8-43a8-a180-7e0d4ce57235-ai-brush-removebg-jxxgzg9m.png">
+    <title>Chat with MR.PREM's Assistant</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4e54c8;
+            --secondary-color: #8f94fb;
+            --dark-color: #121212;
+            --light-color: #f8f9fa;
+            --text-dark: #333;
+            --text-light: #f8f9fa;
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #6c63ff;
+            --secondary-color: #a8a4ff;
+            --dark-color: #f8f9fa;
+            --light-color: #121212;
+            --text-dark: #f8f9fa;
+            --text-light: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--light-color);
+            transition: var(--transition);
+            padding-top: 76px;
+            background: linear-gradient(135deg, var(--light-color) 0%, #f5f7fa 100%);
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            transition: var(--transition);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--text-light) !important;
+            font-weight: 500;
+            margin: 0 10px;
+            transition: var(--transition);
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+
+        /* Page content */
+        .page-content {
+            padding: 40px 0 60px;
+            min-height: calc(100vh - 160px);
+        }
+
+        .section-title {
+            position: relative;
+            margin-bottom: 40px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        }
+
+        /* Chatbot Styles */
+        .chatbot-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .chatbot-header {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .chatbot-header h3 {
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .chatbot-header p {
+            margin: 5px 0 0;
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .chatbot-messages {
+            height: 500px;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background-color: #fafafa;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 15px;
+            border-radius: 12px;
+            animation: fadeIn 0.3s ease;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .bot-message {
+            background: white;
+            align-self: flex-start;
+            border: 1px solid #e0e0e0;
+        }
+
+        .user-message {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            align-self: flex-end;
+        }
+
+        .message-time {
+            font-size: 10px;
+            opacity: 0.7;
+            margin-top: 8px;
+            text-align: right;
+        }
+
+        .bot-message .message-time {
+            text-align: left;
+        }
+
+        .info-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .info-card h5 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .info-card ul {
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+
+        .info-card li {
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .quick-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .quick-question {
+            background: rgba(78, 84, 200, 0.1);
+            padding: 8px 15px;
+            border-radius: 18px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            text-align: left;
+            color: var(--primary-color);
+            border: 1px solid rgba(78, 84, 200, 0.2);
+        }
+
+        .quick-question:hover {
+            background: rgba(78, 84, 200, 0.2);
+        }
+
+        .chatbot-input {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #eee;
+            background: #fff;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            border: 1px solid #ddd;
+            padding: 12px 18px;
+            border-radius: 25px;
+            outline: none;
+            background: #f9f9f9;
+            transition: var(--transition);
+        }
+
+        .chatbot-input input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(78, 84, 200, 0.2);
+        }
+
+        .chatbot-input button {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border: none;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .chatbot-input button:hover {
+            transform: scale(1.05);
+        }
+
+        .suggestion-title {
+            font-size: 14px;
+            margin: 10px 0 8px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Footer */
+        .site-footer {
+            background-color: var(--dark-color);
+            color: var(--text-light);
+            padding: 40px 0 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .social-links {
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 5px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .chatbot-messages {
+                height: 400px;
+                padding: 15px;
+            }
+            
+            .message {
+                max-width: 90%;
+            }
+            
+            .chatbot-container {
+                margin: 0 15px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .chatbot-messages {
+                height: 350px;
+            }
+            
+            .message {
+                max-width: 95%;
+                padding: 12px;
+            }
+            
+            .quick-questions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">MR.PREM</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="journey.html">Journey</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="experience.html">Experience</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="chatbot.html">Chatbot</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Chatbot Section -->
+    <section class="page-content">
+        <div class="container">
+            <h1 class="section-title">Chat with My Assistant</h1>
+            <p class="text-center mb-5">Ask anything about my background, skills, experience, or education</p>
+            
+            <div class="chatbot-container">
+                <div class="chatbot-header">
+                    <h3>MR.PREM's Assistant</h3>
+                    <p>I can help you learn more about Prem Prasad Pradhan</p>
+                </div>
+                
+                <div class="chatbot-messages" id="chatbotMessages">
+                    <div class="message bot-message">
+                        <div>Hello! I'm here to help you learn more about Prem Prasad Pradhan. What would you like to know?</div>
+                        <div class="message-time">Just now</div>
+                        
+                        <div class="suggestion-title">Quick questions you can ask:</div>
+                        <div class="quick-questions">
+                            <button class="quick-question" data-question="about">👨‍🎓 About Prem</button>
+                            <button class="quick-question" data-question="skills">💻 Technical Skills</button>
+                            <button class="quick-question" data-question="journey">📚 Education Journey</button>
+                            <button class="quick-question" data-question="experience">💼 Work Experience</button>
+                            <button class="quick-question" data-question="marks">📊 Academic Marks</button>
+                            <button class="quick-question" data-question="contact">📞 Contact Prem</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chatbot-input">
+                    <input type="text" id="chatbotInput" placeholder="Type your question here...">
+                    <button id="chatbotSend"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="social-links">
+                <a href="https://github.com/MRPREM31" target="_blank" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/prem-prasad-pradhan-18472b295/" target="_blank" title="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="mailto:mr.prem2006@gmail.com" title="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <a href="https://youtube.com/@B.techPrem?si=DLQysUc8HvX8wJTI" target="_blank" title="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://www.instagram.com/liku___pradhan?igsh=ejMzanVtbjJzOGlt" target="_blank" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://medium.com/@mr.prem" target="_blank" title="Medium">
+                    <i class="fab fa-medium"></i>
+                </a>
+            </div>
+            <p class="text-center">Made by <strong>MR.PREM</strong> | All rights reserved © 2025</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Chatbot Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatbotMessages = document.getElementById('chatbotMessages');
+            const chatbotInput = document.getElementById('chatbotInput');
+            const chatbotSend = document.getElementById('chatbotSend');
+            const quickQuestions = document.querySelectorAll('.quick-question');
+            
+            // Send message function
+            function sendMessage() {
+                const message = chatbotInput.value.trim();
+                if (message) {
+                    addMessage(message, 'user');
+                    chatbotInput.value = '';
+                    
+                    // Bot response
+                    setTimeout(() => {
+                        botResponse(message);
+                    }, 600);
+                }
+            }
+            
+            // Send button click
+            chatbotSend.addEventListener('click', sendMessage);
+            
+            // Enter key press
+            chatbotInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            // Quick questions
+            quickQuestions.forEach(button => {
+                button.addEventListener('click', function() {
+                    const question = this.getAttribute('data-question');
+                    addMessage(getQuestionText(question), 'user');
+                    
+                    // Bot response
+                    setTimeout(() => {
+                        botResponse(question);
+                    }, 600);
+                });
+            });
+            
+            // Add message to chat
+            function addMessage(text, type) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                messageDiv.classList.add(type + '-message');
+                
+                const messageContent = document.createElement('div');
+                messageContent.textContent = text;
+                messageDiv.appendChild(messageContent);
+                
+                const messageTime = document.createElement('div');
+                messageTime.classList.add('message-time');
+                messageTime.textContent = getCurrentTime();
+                messageDiv.appendChild(messageTime);
+                
+                chatbotMessages.appendChild(messageDiv);
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            }
+            
+            // Add formatted message with HTML content
+            function addFormattedMessage(htmlContent, type) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                messageDiv.classList.add(type + '-message');
+                
+                messageDiv.innerHTML = htmlContent;
+                
+                const messageTime = document.createElement('div');
+                messageTime.classList.add('message-time');
+                messageTime.textContent = getCurrentTime();
+                messageDiv.appendChild(messageTime);
+                
+                chatbotMessages.appendChild(messageDiv);
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            }
+            
+            // Get current time for message timestamp
+            function getCurrentTime() {
+                const now = new Date();
+                return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            }
+            
+            // Get question text from key
+            function getQuestionText(key) {
+                const questions = {
+                    'about': 'Tell me about Prem',
+                    'skills': 'What are Prem\'s skills?',
+                    'journey': 'What is Prem\'s education journey?',
+                    'experience': 'What work experience does Prem have?',
+                    'marks': 'What are Prem\'s academic marks?',
+                    'contact': 'How can I contact Prem?'
+                };
+                return questions[key] || key;
+            }
+            
+            // Bot responses
+            function botResponse(message) {
+                const lowerMessage = message.toLowerCase();
+                
+                if (lowerMessage.includes('about') || lowerMessage.includes('who') || lowerMessage.includes('prem') || lowerMessage === 'about') {
+                    const aboutContent = `
+                        <div>
+                            <h5 style="color: var(--primary-color); margin-bottom: 15px;">About Prem Prasad Pradhan</h5>
+                            
+                            <div class="info-card">
+                                <h5>Personal Details</h5>
+                                <p><strong>Name:</strong> Prem Prasad Pradhan</p>
+                                <p><strong>Interests:</strong></p>
+                                <ul>
+                                    <li>Poster design</li>
+                                    <li>Technology and innovation</li>
+                                    <li>Leadership and creative thinking</li>
+                                    <li>Problem-solving and team building</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h5>Learning Style & Career Goals</h5>
+                                <p><strong>Learning Style:</strong> Hands-on learning through coding, designing, and leading small projects and teams.</p>
+                                <p><strong>Career Goal:</strong> To become a successful software developer and eventually a CEO — building solutions that create real-world impact through innovation.</p>
+                            </div>
+                        </div>
+                    `;
+                    addFormattedMessage(aboutContent, 'bot');
+                }
+                else if (lowerMessage.includes('skill') || lowerMessage.includes('technology') || lowerMessage === 'skills') {
+                    const skillsContent = `
+                        <div>
+                            <h5 style="color: var(--primary-color); margin-bottom: 15px;">Prem's Core Skills</h5>
+                            
+                            <div class="info-card">
+                                <h5>Programming & Technologies</h5>
+                                <ul>
+                                    <li>C, C++, Python, HTML, CSS</li>
+                                    <li>Database Management (DBMS)</li>
+                                    <li>GitHub, Android Studio</li>
+                                    <li>Canva for design and visual content</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h5>Professional Skills</h5>
+                                <ul>
+                                    <li>Leadership</li>
+                                    <li>Communication</li>
+                                    <li>Time Management</li>
+                                    <li>Team Coordination</li>
+                                    <li>Problem Solving</li>
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+                    addFormattedMessage(skillsContent, 'bot');
+                }
+                else if (lowerMessage.includes('journey') || lowerMessage.includes('education') || lowerMessage.includes('study') || lowerMessage === 'journey') {
+                    const journeyContent = `
+                        <div>
+                            <h5 style="color: var(--primary-color); margin-bottom: 15px;">Prem's Education Journey</h5>
+                            
+                            <div class="info-card">
+                                <h5>📅 31st March 2006</h5>
+                                <p><strong>Date of Birth</strong><br>Born in Khallikot, Odisha, India</p>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h5>🏫 2009-2015: Early Learning – Saraswati Sishu Mandir</h5>
+                                <p>Started learning at age 3. Built strong foundation in academics and values. Daily prayers and discipline shaped my mindset. Studied up to Class 5.</p>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h5>🎓 2015-2021: Schooling – Odisha Adarsha Vidyalaya (OAV)</h5>
+                                <p>A major turning point in my life. Transitioned into English-medium education. Made great friends and had supportive teachers. Completed Class 10 here with pride.</p>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h5>📖 2021-2023: Higher Secondary – Nalanda Shree Higher Secondary School</h5>
+                                <p>Studied Classes 11 and 12. Made close friendships and focused on career goals. Prepared for the next stage in life.</p>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h5>🎯 2023-Present: NIST University, Berhampur</h5>
+                                <p>Currently pursuing B.Tech. Exploring technology and building technical skills. Focused on growth, learning, and future achievements.</p>
+                            </div>
+                        </div>
+                    `;
+                    addFormattedMessage(journeyContent, 'bot');
+                }
+                else if (lowerMessage.includes('experience') || lowerMessage.includes('work') || lowerMessage.includes('job') || lowerMessage === 'experience') {
+                    const experienceContent = `
+                        <div>
+                            <h5 style="color: var(--primary-color); margin-bottom: 15px;">Prem's Work Experience</h5>
+                            
+                            <div class="info-card">
+                                <h5>💼 Team Lead & Vendor at DesiCrew</h5>
+                                <p><strong>Duration:</strong> 1.5+ years Remote</p>
+                                <p><strong>Key Responsibilities:</strong></p>
+                                <ul>
+                                    <li>Leading a remote team on project tasks</li>
+                                    <li>Coordinating with internal members and vendors</li>
+                                    <li>Monitoring task progress and ensuring quality</li>
+                                    <li>Managing reporting and task delivery flow</li>
+                                    <li>Onboarding and guiding new team members</li>
+                                </ul>
+                                <p><strong>Additional Role:</strong> Vendor – managing task distribution and resource planning</p>
+                                <p><strong>Skills Gained:</strong> Leadership, Communication, Time Management, Team Coordination, Problem Solving</p>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h5>🚀 Other Experiences</h5>
+                                <p><strong>Project Work:</strong> Various academic and personal projects in web development, app development, and design.</p>
+                                <p><strong>Leadership Roles:</strong> Leading teams in college events, technical fests, and group projects.</p>
+                            </div>
+                        </div>
+                    `;
+                    addFormattedMessage(experienceContent, 'bot');
+                }
+                else if (lowerMessage.includes('mark') || lowerMessage.includes('percentage') || lowerMessage.includes('academic') || lowerMessage === 'marks') {
+                    const marksContent = `
+                        <div>
+                            <h5 style="color: var(--primary-color); margin-bottom: 15px;">Prem's Academic Performance</h5>
+                            
+                            <div class="info-card">
+                                <h5>📊 Academic Marks</h5>
+                                <p><strong>10th Standard (Matriculation):</strong> 80.3%</p>
+                                <p><strong>12th Standard (Intermediate):</strong> 68%</p>
+                                <p><strong>Current:</strong> Pursuing B.Tech at NIST University</p>
+                            </div>
+                        </div>
+                    `;
+                    addFormattedMessage(marksContent, 'bot');
+                }
+                else if (lowerMessage.includes('contact') || lowerMessage.includes('email') || lowerMessage.includes('connect') || lowerMessage === 'contact') {
+                    const contactContent = `
+                        <div>
+                            <h5 style="color: var(--primary-color); margin-bottom: 15px;">Contact Prem Prasad Pradhan</h5>
+                            
+                            <div class="info-card">
+                                <h5>📧 Email</h5>
+                                <p><strong>Primary Email:</strong> mr.prem2006@gmail.com</p>
+                                <p>Feel free to reach out for collaborations, opportunities, or just to say hello!</p>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h5>📍 Location</h5>
+                                <p>K.Barida, Brahmapur, Odisha, India – 761031</p>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h5>🌐 Social Media</h5>
+                                <p>Connect with me on:</p>
+                                <ul>
+                                    <li>LinkedIn: <a href="https://www.linkedin.com/in/prem-prasad-pradhan-18472b295/" target="_blank">Prem Prasad Pradhan</a></li>
+                                    <li>GitHub: <a href="https://github.com/MRPREM31" target="_blank">MRPREM31</a></li>
+                                    <li>Instagram: <a href="https://www.instagram.com/liku___pradhan" target="_blank">@liku___pradhan</a></li>
+                                    <li>Medium: <a href="https://medium.com/@mr.prem" target="_blank">@mr.prem</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+                    addFormattedMessage(contactContent, 'bot');
+                }
+                else {
+                    addMessage("I'm not sure I understand. Could you please ask about Prem's background, skills, education journey, work experience, academic marks, or how to contact him? You can also click one of the quick questions below.", 'bot');
+                }
+                
+                // Add quick questions after response
+                setTimeout(() => {
+                    const quickQuestionsHTML = `
+                        <div class="suggestion-title">You might want to ask:</div>
+                        <div class="quick-questions">
+                            <button class="quick-question" data-question="about">👨‍🎓 About Prem</button>
+                            <button class="quick-question" data-question="skills">💻 Technical Skills</button>
+                            <button class="quick-question" data-question="journey">📚 Education Journey</button>
+                            <button class="quick-question" data-question="experience">💼 Work Experience</button>
+                            <button class="quick-question" data-question="marks">📊 Academic Marks</button>
+                            <button class="quick-question" data-question="contact">📞 Contact Prem</button>
+                        </div>
+                    `;
+                    
+                    const quickDiv = document.createElement('div');
+                    quickDiv.classList.add('message', 'bot-message');
+                    quickDiv.innerHTML = quickQuestionsHTML;
+                    chatbotMessages.appendChild(quickDiv);
+                    
+                    // Reattach event listeners to new buttons
+                    document.querySelectorAll('.quick-question').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const question = this.getAttribute('data-question');
+                            addMessage(getQuestionText(question), 'user');
+                            
+                            setTimeout(() => {
+                                botResponse(question);
+                            }, 600);
+                        });
+                    });
+                    
+                    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                }, 300);
+            }
+        });
+    </script>
+</body>
+</html>
