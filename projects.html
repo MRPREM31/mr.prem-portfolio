@@ -127,10 +127,15 @@
         .project-header h3 {
             margin: 0;
             font-weight: 600;
+            font-size: 1.25rem;
+            line-height: 1.4;
+            flex: 1;
+            padding-right: 20px;
         }
 
         .project-header i {
             transition: var(--transition);
+            flex-shrink: 0;
         }
 
         .project-header.active i {
@@ -182,20 +187,32 @@
             margin-bottom: 8px;
         }
 
+        .project-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
         .project-links a {
-            display: inline-block;
-            margin-right: 15px;
+            display: inline-flex;
+            align-items: center;
             padding: 8px 20px;
             background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
             color: white;
             text-decoration: none;
             border-radius: 5px;
             transition: var(--transition);
+            white-space: nowrap;
         }
 
         .project-links a:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(78, 84, 200, 0.3);
+        }
+
+        .project-links a i {
+            margin-right: 8px;
         }
 
         .project-image {
@@ -247,15 +264,20 @@
                 padding: 15px;
             }
             
+            .project-header h3 {
+                font-size: 1.1rem;
+                padding-right: 15px;
+            }
+            
             .project-content.active {
                 padding: 20px;
             }
 
             .navbar-nav {
-            text-align: center;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            padding: 15px;
-            border-radius: 10px;
+                text-align: center;
+                background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+                padding: 15px;
+                border-radius: 10px;
             }
             
             .project-meta {
@@ -263,18 +285,53 @@
                 gap: 10px;
             }
             
+            .project-links {
+                flex-direction: column;
+            }
+            
             .project-links a {
-                margin-bottom: 10px;
+                justify-content: center;
             }
         }
 
         @media (max-width: 576px) {
             .project-header h3 {
-                font-size: 18px;
+                font-size: 1rem;
+                line-height: 1.3;
             }
             
             .project-content.active {
                 padding: 15px;
+            }
+            
+            .project-header {
+                padding: 12px;
+            }
+            
+            .project-header i {
+                font-size: 0.9rem;
+            }
+            
+            .project-features h5 {
+                font-size: 1rem;
+            }
+            
+            .project-features li {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .project-header h3 {
+                font-size: 0.95rem;
+            }
+            
+            .project-meta {
+                font-size: 0.85rem;
+            }
+            
+            .project-description {
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -302,7 +359,7 @@
                         <a class="nav-link" href="experience.html">Experience</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./projects.html">Projects</a>
+                        <a class="nav-link active" href="./projects.html">Projects</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="contact.html">Contact</a>
@@ -359,16 +416,13 @@
                             <a href="https://mrprem.in/" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
                             <a href="https://github.com/MRPREM31/mr.prem-portfolio" target="_blank"><i class="fab fa-github"></i> GitHub Repository</a>
                         </div>
-                        <!-- <div class="project-image">
-                            <img src="https://placehold.co/800x400/4e54c8/ffffff?text=Portfolio+Website" alt="Portfolio Website">
-                        </div> -->
                     </div>
                 </div>
 
-                <!-- Project 2 -->
+                <!-- Project 2 - Fixed for mobile -->
                 <div class="project-card">
                     <div class="project-header">
-                        <h3>ClockLive : Productivity Dashboard</h3>
+                        <h3>ClockLive: Productivity Dashboard</h3>
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="project-content">
