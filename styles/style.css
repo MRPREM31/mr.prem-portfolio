@@ -344,3 +344,94 @@ body {
         left: 18px;
     }
 }
+
+/* Floating Chat Button */
+.floating-chat-btn {
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    animation: pulse 2s infinite;
+}
+
+.floating-chat-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+}
+
+.chat-tooltip {
+    position: absolute;
+    right: 70px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.floating-chat-btn:hover .chat-tooltip {
+    opacity: 1;
+    right: 75px;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(78, 84, 200, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(78, 84, 200, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(78, 84, 200, 0);
+    }
+}
+
+/* Responsive design for chat button */
+@media (max-width: 768px) {
+    .floating-chat-btn {
+        bottom: 20px;
+        right: 20px;
+        width: 55px;
+        height: 55px;
+        font-size: 22px;
+    }
+    
+    .chat-tooltip {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+    
+    .floating-chat-btn:hover .chat-tooltip {
+        right: 70px;
+    }
+}
+
+@media (max-width: 576px) {
+    .floating-chat-btn {
+        bottom: 15px;
+        right: 15px;
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+    
+    .chat-tooltip {
+        display: none; /* Hide tooltip on very small screens */
+    }
+}
