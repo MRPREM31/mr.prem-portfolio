@@ -42,7 +42,7 @@ Visit the live website: [mrprem.in](https://mrprem.in)
 - **responsive.css** - Media queries and mobile-specific styles
 
 ### JavaScript Files
-- **script.js** - Dark/light mode toggle, animations, and interactivity
+- **script.js** - animations, and interactivity
 
 ### Assets
 - **images/** - Folder containing all website images and favicon
