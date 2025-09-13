@@ -42,7 +42,7 @@ Visit the live website: [mrprem.in](https://mrprem.in)
 - **responsive.css** - Media queries and mobile-specific styles
 
 ### JavaScript Files
-- **script.js** - animations, and interactivity
+- **script.js** - Handles animations and interactivity
 
 ### Assets
 - **images/** - Folder containing all website images and favicon
@@ -73,10 +73,6 @@ Visit the live website: [mrprem.in](https://mrprem.in)
 *2.* Connect Netlify to your GitHub account  
 *3.* Deploy automatically from GitHub  
 
-### InfinityFree  
-*1.* Upload all files to the `public_html` folder  
-*2.* Ensure PHP is enabled for form handling  
-
 ## 🎨 Customization
 
 ### Updating Personal Information
@@ -92,16 +88,4 @@ Visit the live website: [mrprem.in](https://mrprem.in)
 - **Medium**: [@mr.prem](https://medium.com/@mr.prem)  
 - **YouTube**: [B.techPrem](https://youtube.com/@B.techPrem?si=DLQysUc8HvX8wJTI)  
 - **Instagram**: [liku___pradhan](https://www.instagram.com/liku___pradhan?igsh=ejMzanVtbjJzOGlt)  
-
-
-
-## Changing Color Scheme
-Modify CSS variables in the `:root` selector inside `style.css`:  
-
-```css
-:root {
-    --primary-color: #4e54c8;
-    --secondary-color: #8f94fb;
-    /* Add your custom colors */
-}
 
