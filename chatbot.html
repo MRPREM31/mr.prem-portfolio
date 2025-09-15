@@ -249,6 +249,51 @@
             margin-top: 5px;
             font-style: italic;
         }
+        
+        .btn-resume {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .btn-resume:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            color: white;
+        }
+        
+        .project-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-block;
+            margin-top: 8px;
+        }
+        
+        .project-link:hover {
+            text-decoration: underline;
+        }
+        .header-logo {
+            width: 35px;
+            height: 35px;
+            margin-right: 12px;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+
+        /* Adjust the header content to align properly with the logo */
+        .chatbot-header-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
 
         /* Mobile Optimization */
         @media (max-width: 768px) {
@@ -329,13 +374,15 @@
     <!-- Chatbot Container -->
     <div class="chatbot-container">
         <div class="chatbot-header">
-            <a href="index.html" class="back-button">
-                <i class="fas fa-arrow-left"></i>
-            </a>
-            <div class="chatbot-header-content">
-                <h3>MR.PREM's Assistant</h3>
-                <p>Ask me about Prem's background, skills, and experience</p>
-            </div>
+    <a href="index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+        <!-- Add this image element -->
+        <img src="./images/Ai.png" class="header-logo">
+        <div class="chatbot-header-content">
+            <h3>MR.PREM's Assistant</h3>
+            <p>Ask me about Prem's background, skills, and experience</p>
+        </div>
         </div>
         
         <div class="chatbot-messages" id="chatbotMessages">
@@ -350,6 +397,8 @@
                     <button class="quick-question" data-question="skills">💻 Technical Skills</button>
                     <button class="quick-question" data-question="journey">📚 Education Journey</button>
                     <button class="quick-question" data-question="experience">💼 Work Experience</button>
+                    <button class="quick-question" data-question="projects">🚀 Projects</button>
+                    <button class="quick-question" data-question="resume">📄 Resume</button>
                     <button class="quick-question" data-question="marks">📊 Academic Marks</button>
                     <button class="quick-question" data-question="contact">📞 Contact Prem</button>
                 </div>
@@ -479,6 +528,8 @@
                 'skills': 'What are Prem\'s skills?',
                 'journey': 'What is Prem\'s education journey?',
                 'experience': 'What work experience does Prem have?',
+                'projects': 'What projects has Prem worked on?',
+                'resume': 'Can I see Prem\'s resume?',
                 'marks': 'What are Prem\'s academic marks?',
                 'contact': 'How can I contact Prem?'
             };
@@ -494,13 +545,13 @@
                 lowerMessage === 'hi' || lowerMessage === 'hello') {
                 const greetingContent = `
                     <div>
-                        <div>Hello! 👋 I'm Prem's virtual assistant. I can tell you about Prem's background, skills, education, work experience, and more.</div>
+                        <div>Hello! 👋 I'm Prem's virtual assistant. I can tell you about Prem's background, skills, education, work experience, projects, and more.</div>
                         <div class="suggestion-title" style="margin-top: 15px;">What would you like to know?</div>
                         <div class="quick-questions">
                             <button class="quick-question" data-question="about">About Prem</button>
                             <button class="quick-question" data-question="skills">Technical Skills</button>
-                            <button class="quick-question" data-question="journey">Education Journey</button>
-                            <button class="quick-question" data-question="experience">Work Experience</button>
+                            <button class="quick-question" data-question="projects">Projects</button>
+                            <button class="quick-question" data-question="resume">Resume</button>
                         </div>
                     </div>
                 `;
@@ -625,6 +676,67 @@
                 `;
                 addFormattedMessage(experienceContent, 'bot');
             }
+            else if (lowerMessage.includes('project') || lowerMessage === 'projects') {
+                const projectsContent = `
+                    <div>
+                        <h5>Prem's Notable Projects</h5>
+                        
+                        <div class="info-card">
+                            <h5>🌐 Portfolio Website</h5>
+                            <p><strong>Description:</strong> A responsive portfolio website built with HTML, CSS, JavaScript, and Bootstrap. Features an interactive chatbot, and contact form with Google Apps Script integration.</p>
+                            <p><strong>Key Features:</strong></p>
+                            <ul>
+                                <li>Fully responsive design for all devices</li>
+                                <li>Interactive chatbot with information about me</li>
+                                <li>Contact form with email functionality</li>
+                                <li>Smooth animations and transitions</li>
+                            </ul>
+                            <p><strong>Technologies Used:</strong> HTML5, CSS3, JavaScript (ES6+), Bootstrap 5.3, Google Apps Script, Font Awesome, Google Fonts</p>
+                            <a href="https://github.com/MRPREM31/mr.prem-portfolio" target="_blank" class="project-link">View on GitHub →</a>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h5>⏰ Productivity Dashboard</h5>
+                            <p><strong>Description:</strong> A beautiful, feature-rich dashboard for students and professionals with clock, timer, calculator, and weather features.</p>
+                            <p><strong>Key Features:</strong></p>
+                            <ul>
+                                <li>Real-time clock with date and day display</li>
+                                <li>Customizable timer with alarm sounds</li>
+                                <li>Built-in calculator with calculation history</li>
+                                <li>Real-time weather information based on location</li>
+                                <li>Personalization options and multiple themes</li>
+                                <li>Battery status display and screen wake lock</li>
+                            </ul>
+                            <p><strong>Technologies Used:</strong> HTML5, CSS3 with Glassmorphism design, Vanilla JavaScript, Geolocation API, Battery Status API, Screen Wake Lock API, Local Storage</p>
+                            <a href="https://github.com/MRPREM31/ClockLive-Productivity-Dashboard" target="_blank" class="project-link">View on GitHub →</a>
+                        </div>
+                    </div>
+                `;
+                addFormattedMessage(projectsContent, 'bot');
+            }
+            else if (lowerMessage.includes('resume') || lowerMessage.includes('cv') || lowerMessage.includes('download')) {
+                const resumeContent = `
+                    <div>
+                        <h5>Prem's Resume</h5>
+                        
+                        <div class="info-card">
+                            <h5>📄 Professional Resume/CV</h5>
+                            <p>You can download Prem's resume to view his complete professional background, skills, education, work experience, and projects in detail.</p>
+                            <p>The resume includes:</p>
+                            <ul>
+                                <li>Complete educational history</li>
+                                <li>Technical and professional skills</li>
+                                <li>Work experience details</li>
+                                <li>Project portfolio</li>
+                                <li>Achievements and certifications</li>
+                                <li>Contact information</li>
+                            </ul>
+                            <a href="./images/documents/PremCV.pdf" target="_blank" class="btn-resume">Download Resume</a>
+                        </div>
+                    </div>
+                `;
+                addFormattedMessage(resumeContent, 'bot');
+            }
             else if (lowerMessage.includes('mark') || lowerMessage.includes('percentage') || lowerMessage.includes('academic') || lowerMessage === 'marks') {
                 const marksContent = `
                     <div>
@@ -671,7 +783,7 @@
                 addFormattedMessage(contactContent, 'bot');
             }
             else {
-                addMessage("I'm not sure I understand. Could you please ask about Prem's background, skills, education journey, work experience, academic marks, or how to contact him? You can also click one of the quick questions below.", 'bot');
+                addMessage("I'm not sure I understand. Could you please ask about Prem's background, skills, education journey, work experience, projects, resume, academic marks, or how to contact him? You can also click one of the quick questions below.", 'bot');
             }
             
             // Add quick questions after response
@@ -681,8 +793,8 @@
                     <div class="quick-questions">
                         <button class="quick-question" data-question="about">About Prem</button>
                         <button class="quick-question" data-question="skills">Technical Skills</button>
-                        <button class="quick-question" data-question="journey">Education Journey</button>
-                        <button class="quick-question" data-question="experience">Work Experience</button>
+                        <button class="quick-question" data-question="projects">Projects</button>
+                        <button class="quick-question" data-question="resume">Resume</button>
                     </div>
                 `;
                 
