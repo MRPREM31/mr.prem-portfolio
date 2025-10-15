@@ -2,7 +2,7 @@
 
 A modern, responsive portfolio website built with HTML, CSS, JavaScript, and Bootstrap. Features an interactive chatbot, project showcase, and contact form with Google Apps Script integration.
 
-![Portfolio Screenshot](https://raw.githubusercontent.com/MRPREM31/mr.prem-portfolio/refs/heads/main/images/MR-PREM-Portfolio%20(1).png)
+![Portfolio Screenshot](https://github.com/MRPREM31/mr.prem-portfolio/blob/main/images/MR-PREM-Portfolio%20(1).webp?raw=true)
 
 ## 🌐 Live Demo
 
